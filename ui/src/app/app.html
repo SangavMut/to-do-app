@@ -1,0 +1,26 @@
+<div class="todo-card">
+  <header class="todo-header">
+    <h1>Todo List</h1>
+  </header>
+
+  <ul class="todo-list">
+    <li *ngFor="let task of tasks" class="todo-item">
+      <label>
+        <span *ngIf="editingTaskId !== task.id">{{ task.task }}</span>
+        <input *ngIf="editingTaskId === task.id"
+               [(ngModel)]="updatedTask"
+               (blur)="saveTask(task)"
+               (keyup.enter)="saveTask(task)"
+               autofocus />
+      </label>
+
+      <div class="actions">
+        <button *ngIf="editingTaskId !== task.id" (click)="startEditing(task)" aria-label="Edit Task">✏️</button>
+        <button *ngIf="editingTaskId === task.id" (click)="cancelEditing()" aria-label="Cancel Edit">❌</button>
+        <button (click)="deleteTask(task.id!)" aria-label="Delete Task">🗑️</button>
+      </div>
+    </li>
+  </ul>
+
+  <button class="new-task-btn" (click)="addTask()">＋ New task</button>
+</div>
