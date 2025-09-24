@@ -14,11 +14,18 @@
           [checked]="task.completed"
           (change)="toggleCompleted(task)"
         />
-        <span>{{ task.task }}</span>
+        <input *ngIf="editingTaskId === task.id"
+               [(ngModel)]="updatedTask"
+               (blur)="saveTask(task)"
+               (keyup.enter)="saveTask(task)"
+               autofocus />
+        <span *ngIf="editingTaskId !== task.id">{{ task.task }}</span>
       </label>
 
       <div class="todo__actions">
-        <button (click)="startEditing(task)">✏️</button>
+        <button  *ngIf="editingTaskId !== task.id"  (click)="startEditing(task)">✏️</button>
+         <button *ngIf="editingTaskId === task.id" (click)="cancelEditing()" aria-label="Cancel Edit">❌</button>
+        <button *ngIf="editingTaskId === task.id" (click)="saveTask(task)" aria-label="Save Edit">✔️</button>
         <button (click)="deleteTask(task.id)">🗑️</button>
       </div>
     </li>

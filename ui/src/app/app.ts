@@ -79,7 +79,6 @@ export class App implements OnInit {
         task: this.updatedTask
       };
       this.taskService.updateTask(updated).subscribe(() => {
-        task.task = this.updatedTask;
         this.editingTaskId = null;
         this.updatedTask = '';
         this.cdr.markForCheck();
