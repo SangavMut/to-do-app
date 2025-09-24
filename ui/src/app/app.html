@@ -1,0 +1,48 @@
+<div class="todo">
+  <div class="todo__header">My Tasks</div>
+
+  <ul class="todo__list">
+    <li
+      class="todo__item"
+      *ngFor="let task of tasks"
+      [class.todo__item--completed]="task.completed"
+    >
+      <label class="todo__item-label">
+        <input
+          class="todo__item-checkbox"
+          type="checkbox"
+          [checked]="task.completed"
+          (change)="toggleCompleted(task)"
+        />
+        <input *ngIf="editingTaskId === task.id"
+               [(ngModel)]="updatedTask"
+               (blur)="saveTask(task)"
+               (keyup.enter)="saveTask(task)"
+               autofocus />
+        <span *ngIf="editingTaskId !== task.id">{{ task.task }}</span>
+      </label>
+
+      <div class="todo__actions">
+        <button  *ngIf="editingTaskId !== task.id"  (click)="startEditing(task)">✏️</button>
+         <button *ngIf="editingTaskId === task.id" (click)="cancelEditing()" aria-label="Cancel Edit">❌</button>
+        <button *ngIf="editingTaskId === task.id" (click)="saveTask(task)" aria-label="Save Edit">✔️</button>
+        <button (click)="deleteTask(task.id)">🗑️</button>
+      </div>
+    </li>
+  </ul>
+
+  <button class="todo__add-button" (click)="showNewTaskModal = true">
+    + Add Task
+  </button>
+</div>
+
+<div class="modal__backdrop" *ngIf="showNewTaskModal">
+  <div class="modal__content">
+    <h2>New Task</h2>
+    <input [(ngModel)]="newTask" type="text" placeholder="Enter task..." />
+    <div class="modal__actions">
+      <button (click)="addTask()">Add</button>
+      <button (click)="closeNewTaskModal()">Cancel</button>
+    </div>
+  </div>
+</div>
