@@ -1,46 +1,40 @@
-<div class="todo-card">
-  <header class="todo-header">
-    <h1>Todo List</h1>
-  </header>
+<div class="todo">
+  <div class="todo__header">My Tasks</div>
 
-  <ul class="todo-list">
-    <li *ngFor="let task of tasks" class="todo-item">
-      <label>
-        <input type="checkbox" [checked]="task.completed" (change)="toggleCompleted(task)" />
-        <span *ngIf="editingTaskId !== task.id" [class.completed]="task.completed">{{ task.task }}</span>
-        <input *ngIf="editingTaskId === task.id"
-               [(ngModel)]="updatedTask"
-               (blur)="saveTask(task)"
-               (keyup.enter)="saveTask(task)"
-               autofocus />
+  <ul class="todo__list">
+    <li
+      class="todo__item"
+      *ngFor="let task of tasks"
+      [class.todo__item--completed]="task.completed"
+    >
+      <label class="todo__item-label">
+        <input
+          class="todo__item-checkbox"
+          type="checkbox"
+          [checked]="task.completed"
+          (change)="toggleCompleted(task)"
+        />
+        <span>{{ task.task }}</span>
       </label>
 
-      <div class="actions">
-        <button *ngIf="editingTaskId !== task.id" (click)="startEditing(task)" aria-label="Edit Task">✏️</button>
-
-        <button *ngIf="editingTaskId === task.id" (click)="cancelEditing()" aria-label="Cancel Edit">❌</button>
-
-        <button *ngIf="editingTaskId === task.id" (click)="saveTask(task)" aria-label="Save Edit">✔️</button>
-
-        <button (click)="deleteTask(task.id!)" aria-label="Delete Task">🗑️</button>
+      <div class="todo__actions">
+        <button (click)="startEditing(task)">✏️</button>
+        <button (click)="deleteTask(task.id)">🗑️</button>
       </div>
     </li>
   </ul>
 
-  <button class="new-task-btn" (click)="showNewTaskModal = true">＋ New task</button>
+  <button class="todo__add-button" (click)="showNewTaskModal = true">
+    + Add Task
+  </button>
 </div>
 
-<div class="modal-backdrop" *ngIf="showNewTaskModal">
-  <div class="modal">
-    <h2>Add New Task</h2>
-    <input
-      type="text"
-      [(ngModel)]="newTask"
-      placeholder="Enter task"
-      (keyup.enter)="addTask()"
-    />
-    <div class="modal-actions">
-      <button (click)="addTask()" [disabled]="!newTask.trim()">Add</button>
+<div class="modal__backdrop" *ngIf="showNewTaskModal">
+  <div class="modal__content">
+    <h2>New Task</h2>
+    <input [(ngModel)]="newTask" type="text" placeholder="Enter task..." />
+    <div class="modal__actions">
+      <button (click)="addTask()">Add</button>
       <button (click)="closeNewTaskModal()">Cancel</button>
     </div>
   </div>
