@@ -16,6 +16,7 @@ export class App implements OnInit {
   newTask: string = '';
   editingTaskId: number | null = null;
   updatedTask: string = '';
+  showNewTaskModal = false;
 
   constructor(private taskService: TaskService) {}
 
@@ -34,8 +35,14 @@ export class App implements OnInit {
     this.taskService.addTask({ task: this.newTask , id: null}).subscribe(() => {
       this.newTask = '';
       this.loadTasks();
+      this.showNewTaskModal = false;
     });
   }
+  closeNewTaskModal(): void {
+  this.newTask = '';
+  this.showNewTaskModal = false;
+}
+
 
   deleteTask(id: number): void {
     this.taskService.deleteTask(id).subscribe(() => {

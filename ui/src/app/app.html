@@ -16,11 +16,31 @@
 
       <div class="actions">
         <button *ngIf="editingTaskId !== task.id" (click)="startEditing(task)" aria-label="Edit Task">✏️</button>
+
         <button *ngIf="editingTaskId === task.id" (click)="cancelEditing()" aria-label="Cancel Edit">❌</button>
+
+        <button *ngIf="editingTaskId === task.id" (click)="saveTask(task)" aria-label="Save Edit">✔️</button>
+
         <button (click)="deleteTask(task.id!)" aria-label="Delete Task">🗑️</button>
       </div>
     </li>
   </ul>
 
-  <button class="new-task-btn" (click)="addTask()">＋ New task</button>
+  <button class="new-task-btn" (click)="showNewTaskModal = true">＋ New task</button>
+</div>
+
+<div class="modal-backdrop" *ngIf="showNewTaskModal">
+  <div class="modal">
+    <h2>Add New Task</h2>
+    <input
+      type="text"
+      [(ngModel)]="newTask"
+      placeholder="Enter task"
+      (keyup.enter)="addTask()"
+    />
+    <div class="modal-actions">
+      <button (click)="addTask()" [disabled]="!newTask.trim()">Add</button>
+      <button (click)="closeNewTaskModal()">Cancel</button>
+    </div>
+  </div>
 </div>

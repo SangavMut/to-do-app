@@ -23,6 +23,7 @@ def health():
 
 class TaskModel(BaseModel):
     task: str
+    completed: bool = False
 
 @app.get("/tasks")
 def get_tasks():
@@ -39,14 +40,3 @@ def put_task(task_id: int, task: TaskModel):
 @app.delete("/tasks/{task_id}")
 def remove_task(task_id: int):
     return delete_task(task_id)
-
-# @app.get("/get_tasks")
-# def get_all_tasks():
-#     return fetch_all_tasks()
-
-# @app.post("/add_tasks")
-# def add_new_tasks(input_data: dict):
-#     try:
-#         return add_new_task(input_data.get("task"))
-#     except Exception as e:
-#         return JSONResponse(status_code=500, content= {"msg": str(e)} )

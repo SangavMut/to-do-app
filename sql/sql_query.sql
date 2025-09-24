@@ -2,7 +2,8 @@ DROP TABLE IF EXISTS todo;
 
 CREATE TABLE todo(
 id SERIAL PRIMARY KEY,
-task VARCHAR(100)
+task VARCHAR(100),
+completed BOOL DEFAULT FALSE
 );
 
 INSERT INTO todo (task) VALUES ('Buy groceries');
