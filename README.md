@@ -4,7 +4,7 @@
 
 This is a basic full-stack todo app built using Angular for the frontend, FastAPI for the backend, and PostgreSQL as the database. You can add tasks, mark them as complete, update them, and delete them.
 
-I based it on a project shown in [this YouTube video](https://www.youtube.com/watch?v=ip7b4JBW19k), but built it using a different tech stack.
+![alt text](image-1.png)
 
 ---
 
