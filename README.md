@@ -4,7 +4,7 @@
 
 This is a basic full-stack todo app built using Angular for the frontend, FastAPI for the backend, and PostgreSQL as the database. You can add tasks, mark them as complete, update them, and delete them.
 
-<img width="682" height="761" alt="image" src="https://github.com/user-attachments/assets/ac6064c2-88d0-48d5-8d2d-7b52262f8533" />
+<img width="430" height="550" alt="image" src="https://github.com/user-attachments/assets/a823771c-e4cf-461d-92f4-a5407596772e" />
 
 ---
 
@@ -15,6 +15,8 @@ This is a basic full-stack todo app built using Angular for the frontend, FastAP
 * Mark tasks as complete or incomplete
 * Delete tasks
 * Tasks are saved to a PostgreSQL database
+
+![Uploading image.png…]()
 
 ---
 
