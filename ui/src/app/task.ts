@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 export interface Task {
   id: number|null;
   task: string;
+  completed: boolean
 }
 
 @Injectable({

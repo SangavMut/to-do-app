@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectorRef,
-  ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Task, TaskService } from './task';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -24,10 +19,7 @@ export class App implements OnInit {
   updatedTask: string = '';
   showNewTaskModal = false;
 
-  constructor(
-    private taskService: TaskService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  constructor(private taskService: TaskService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.loadTasks();
@@ -42,10 +34,15 @@ export class App implements OnInit {
 
   addTask(): void {
     if (!this.newTask.trim()) return;
-    this.taskService.addTask({ task: this.newTask, id: null }).subscribe(() => {
+    const newTaskObj: Task = {
+      id: null,
+      task: this.newTask,
+      completed: false
+    };
+    this.taskService.addTask(newTaskObj).subscribe(() => {
       this.newTask = '';
-      this.showNewTaskModal = false;
       this.loadTasks();
+      this.showNewTaskModal = false;
     });
   }
 
@@ -55,10 +52,12 @@ export class App implements OnInit {
     this.cdr.markForCheck();
   }
 
-  deleteTask(id: number): void {
+  deleteTask(id: number|null): void {
+    if (id !== null) {
     this.taskService.deleteTask(id).subscribe(() => {
       this.loadTasks();
     });
+  }
   }
 
   startEditing(task: Task): void {
@@ -75,14 +74,27 @@ export class App implements OnInit {
 
   saveTask(task: Task): void {
     if (this.updatedTask.trim() !== '') {
-      this.taskService
-        .updateTask({ ...task, task: this.updatedTask })
-        .subscribe(() => {
-          task.task = this.updatedTask;
-          this.editingTaskId = null;
-          this.updatedTask = '';
-          this.cdr.markForCheck();
-        });
+      const updated: Task = {
+        ...task,
+        task: this.updatedTask
+      };
+      this.taskService.updateTask(updated).subscribe(() => {
+        task.task = this.updatedTask;
+        this.editingTaskId = null;
+        this.updatedTask = '';
+        this.cdr.markForCheck();
+      });
     }
+  }
+
+  toggleCompleted(task: Task): void {
+    const updatedTask: Task = {
+      ...task,
+      completed: !task.completed
+    };
+    this.taskService.updateTask(updatedTask).subscribe(() => {
+      task.completed = updatedTask.completed;
+      this.cdr.markForCheck();
+    });
   }
 }

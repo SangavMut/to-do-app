@@ -31,11 +31,11 @@ def get_tasks():
 
 @app.post("/tasks")
 def post_task(task: TaskModel):
-    return add_new_task(task.task)
+    return add_new_task(task.task, task.completed)
 
 @app.put("/tasks/{task_id}")
 def put_task(task_id: int, task: TaskModel):
-    return update_task(task_id, task.task)
+    return update_task(task_id, task.task, task.completed)
 
 @app.delete("/tasks/{task_id}")
 def remove_task(task_id: int):
